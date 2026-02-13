@@ -5,8 +5,8 @@
 <style>
 body{
     text-align:center;
-    background:black;
-    color:white;
+    background: linear-gradient(to bottom, #ffffff, #ffd6ec, #ff99cc);
+    color:#b30059;
     font-family:Comic Sans MS;
     overflow:hidden;
 }
@@ -40,14 +40,37 @@ body{
     from{transform:scale(0);opacity:1;}
     to{transform:scale(3);opacity:0;}
 }
+    .bg-heart{
+    position:fixed;
+    color:#ff99cc;
+    opacity:0.5;
+    animation:floatUp 8s linear infinite;
+    z-index:-1;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(100vh) scale(0.5);
+        opacity:0.7;
+    }
+    to{
+        transform:translateY(-10vh) scale(1.2);
+        opacity:0;
+    }
+}
 </style>
 </head>
 
 <body>
 
 <h1>IT'S A DATE 💘</h1>
-<h2>Chand Sitarey Phool Parindey shayam savera ak taraf 💖</h2>
-<h3>Tera Hasna, Teri Baatein, Tera Chehra Ek Taraf 💖</h3>
+<h2>
+Chand, Sitarey, Phool, Parindey,<br>
+Sham, Savera Ek Taraf… 💫<br><br>
+Tera Hasna, Teri Baatein,<br>
+Tera Chehra Ek Taraf 💘
+</h2>
+
 
 <img id="slide" class="slideshow" src="photo1.jpg">
 
@@ -73,16 +96,19 @@ setInterval(function(){
     document.getElementById("slide").src=images[index];
 },2000);
 
-// Falling photos
+// Heart Rain
 setInterval(function(){
-    let img=document.createElement("img");
-    img.src=images[Math.floor(Math.random()*images.length)];
-    img.classList.add("falling");
-    img.style.left=Math.random()*100+"vw";
-    img.style.animationDuration=(Math.random()*3+3)+"s";
-    document.body.appendChild(img);
-    setTimeout(()=>img.remove(),6000);
-},500);
+    let heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.style.position = "fixed";
+    heart.style.top = "-20px";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*20 + 20) + "px";
+    heart.style.animation = "fall 4s linear";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),4000);
+},300);
 
 // Fireworks
 setInterval(function(){
@@ -94,6 +120,18 @@ setInterval(function(){
     document.body.appendChild(fw);
     setTimeout(()=>fw.remove(),1000);
 },400);
+// Background Floating Hearts
+setInterval(function(){
+    let heart = document.createElement("div");
+    heart.innerHTML = "💗";
+    heart.classList.add("bg-heart");
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*30 + 20) + "px";
+    heart.style.animationDuration = (Math.random()*5 + 5) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),10000);
+},800);
 
 </script>
 
