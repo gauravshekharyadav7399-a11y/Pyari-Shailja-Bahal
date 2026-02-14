@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>It's a Date 💖</title>
+<title>Then...It's a Date 💖</title>
 <style>
 body{
     text-align:center;
@@ -9,7 +9,9 @@ body{
     color:#b30059;
     font-family:Comic Sans MS;
     overflow:hidden;
+    animation:softPulse 6s infinite alternate;
 }
+
 
 .slideshow{
     width:300px;
@@ -17,6 +19,7 @@ body{
     border-radius:20px;
     margin:20px auto;
     object-fit:cover;
+    transition:opacity 1s ease-in-out;
 }
 
 .falling{
@@ -40,6 +43,11 @@ body{
     from{transform:scale(0);opacity:1;}
     to{transform:scale(3);opacity:0;}
 }
+
+@keyframes softPulse{
+    from{filter:brightness(1);}
+    to{filter:brightness(1.05);}
+}
     .bg-heart{
     position:fixed;
     color:#ff99cc;
@@ -58,23 +66,100 @@ body{
         opacity:0;
     }
 }
+.moon{
+    position:fixed;
+    top:40px;
+    right:40px;
+    width:100px;
+    height:100px;
+    background:radial-gradient(circle at 30% 30%, #ffffff, #ffe6f2);
+    border-radius:50%;
+    box-shadow:0 0 40px #ffb3d9, 0 0 80px #ff66b2;
+    z-index:-1;
+    animation:moonGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes moonGlow{
+    from{box-shadow:0 0 20px #ffb3d9, 0 0 40px #ff66b2;}
+    to{box-shadow:0 0 50px #ff99cc, 0 0 100px #ff3399;}
+}
+
+.star{
+    position:fixed;
+    color:white;
+    font-size:15px;
+    animation:twinkle 2s infinite alternate;
+    z-index:-1;
+}
+
+@keyframes twinkle{
+    from{opacity:0.3;}
+    to{opacity:1;}
+}
+.glow{
+    animation:glowText 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowText{
+    from{ text-shadow:0 0 5px #ff99cc; }
+    to{ text-shadow:0 0 20px #ff3399, 0 0 40px #ff66b2; }
+}
+.sky-name{
+    position:fixed;
+    top:30%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:60px;
+    color:#ff4da6;
+    opacity:0;
+    text-shadow:0 0 20px #ff99cc, 0 0 40px #ff3399;
+    animation:fadeInName 4s ease forwards;
+    z-index:-1;
+}
+
+@keyframes fadeInName{
+    to{opacity:0.4;}
+}
+.heartbeat{
+    font-size:40px;
+    animation:beat 1s infinite;
+    margin-top:20px;
+}
+
+@keyframes beat{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+}
+// Confetti Explosion on Load
+window.onload = function(){
+    for(let i=0;i<80;i++){
+        let confetti = document.createElement("div");
+        confetti.innerHTML = "🎊";
+        confetti.style.position = "fixed";
+        confetti.style.left = Math.random()*100 + "vw";
+        confetti.style.top = Math.random()*100 + "vh";
+        confetti.style.fontSize = (Math.random()*20 + 15) + "px";
+        confetti.style.animation = "boom 1.5s forwards";
+        document.body.appendChild(confetti);
+
+        setTimeout(()=>confetti.remove(),1500);
+    }
+};
+
 </style>
 </head>
 
 <body>
-
-<h1>IT'S A DATE 💘</h1>
-<h2>
-Chand, Sitarey, Phool, Parindey,<br>
-Sham, Savera Ek Taraf… 💫<br><br>
-Tera Hasna, Teri Baatein,<br>
-Tera Chehra Ek Taraf 💘
-</h2>
-
+<div class="moon"></div
+<div class="sky-name"> Miss Shailja Bahal aka cutoooo❤️</div>
+<h1>Done...IT'S A DATE with....💘</h1>
+<div class="heartbeat"> The woman I have been in love with for half of my life. ❤️</div>
+<h2 id="loveText"></h2>
 
 <img id="slide" class="slideshow" src="photo1.jpg">
 
-<h3>Forever Yours, <br> Gaurav ❤️</h3>
+<h3 class="glow"> "The man with whom you share a thrilling love story", <br> G.S.Y. ❤️</h3>
 
 <audio id="bgMusic" loop>
 <source src="tera-hasna.mp3" type="audio/mp3">
@@ -92,9 +177,16 @@ let images=["photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg"];
 let index=0;
 
 setInterval(function(){
-    index=(index+1)%images.length;
-    document.getElementById("slide").src=images[index];
-},2000);
+    let slide = document.getElementById("slide");
+    slide.style.opacity = 0;
+
+    setTimeout(function(){
+        index=(index+1)%images.length;
+        slide.src = images[index];
+        slide.style.opacity = 1;
+    },2000);
+
+},4000);
 
 // Heart Rain
 setInterval(function(){
@@ -132,8 +224,37 @@ setInterval(function(){
 
     setTimeout(()=>heart.remove(),10000);
 },800);
+// Sparkling Stars
+setInterval(function(){
+    let star = document.createElement("div");
+    star.innerHTML = "✨";
+    star.classList.add("star");
+    star.style.left = Math.random()*100 + "vw";
+    star.style.top = Math.random()*100 + "vh";
+    document.body.appendChild(star);
+
+    setTimeout(()=>star.remove(),2000);
+},500);
+// Typing Animation
+let text = `Chand Sitarey Phool Parindey shayam savera ak taraf 💖…
+Tera Hasna, Teri Baatein, Tera Chehra Ek Taraf 💖`;
+
+let i = 0;
+function typeWriter(){
+    if(i < text.length){
+        document.getElementById("loveText").innerHTML += 
+        text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+    }
+}
+typeWriter();
 
 </script>
 
 </body>
 </html>
+
+
+
+
