@@ -14,13 +14,14 @@ body{
 
 
 .slideshow{
-    width:300px;
-    height:400px;
+    max-width:350px;
+    max-height:500px;
     border-radius:20px;
     margin:20px auto;
-    object-fit:cover;
+    object-fit:contain;
     transition:opacity 1s ease-in-out;
 }
+
 
 .falling{
     position:fixed;
@@ -146,18 +147,39 @@ window.onload = function(){
         setTimeout(()=>confetti.remove(),1500);
     }
 };
+.music-btn{
+    padding:12px 25px;
+    font-size:18px;
+    background:#ff4da6;
+    color:white;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin-top:10px;
+    transition:0.3s;
+    box-shadow:0 0 15px #ff99cc;
+}
+
+.music-btn:hover{
+    background:#ff1a8c;
+    transform:scale(1.1);
+    box-shadow:0 0 25px #ff3399;
+}
+
 
 </style>
 </head>
 
 <body>
-<div class="moon"></div
+<div class="moon"></div>
 <div class="sky-name"> Miss Shailja Bahal aka cutoooo❤️</div>
 <h1>Done...IT'S A DATE with....💘</h1>
 <div class="heartbeat"> The woman I have been in love with for half of my life. ❤️</div>
 <h2 id="loveText"></h2>
 
 <img id="slide" class="slideshow" src="photo1.jpg">
+<br>
+<button onclick="startMusic()" class="music-btn">Play Music 💖</button>
 
 <h3 class="glow"> "The man with whom you share a thrilling love story", <br> G.S.Y. ❤️</h3>
 
@@ -166,11 +188,6 @@ window.onload = function(){
 </audio>
 
 <script>
-
-// Start music after first click
-document.body.addEventListener("click",function(){
-    document.getElementById("bgMusic").play();
-});
 
 // Slideshow
 let images=[
@@ -195,7 +212,7 @@ setInterval(function(){
         slide.style.opacity = 1;
     },2000);
 
-},4000);
+},5000);
 
 // Heart Rain
 setInterval(function(){
@@ -258,12 +275,18 @@ function typeWriter(){
     }
 }
 typeWriter();
+function startMusic(){
+    let music = document.getElementById("bgMusic");
+    music.play();
+    
+    // Optional: Hide button after click
+    document.querySelector(".music-btn").style.display = "none";
+}
 
 </script>
 
 </body>
 </html>
-
 
 
 
