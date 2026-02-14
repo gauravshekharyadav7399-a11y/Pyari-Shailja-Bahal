@@ -33,24 +33,79 @@ button{
     left:55%;
     top:60%;
 }
+/* Shake animation */
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    50%{transform:translateX(5px);}
+    75%{transform:translateX(-5px);}
+    100%{transform:translateX(0);}
+}
+
+.shake{
+    animation:shake 0.4s infinite;
+}
+
+/* Falling tears */
+.tear{
+    position:fixed;
+    top:-20px;
+    font-size:20px;
+    animation:fall 3s linear forwards;
+}
+@keyframes fall{
+    0%{
+        transform:translateY(0);
+        opacity:1;
+    }
+    100%{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+}
+
+/* Cry message */
+#cryMessage{
+    font-size:25px;
+    color:#fff;
+    margin-top:10px;
+    opacity:0;
+    transition:opacity 0.5s;
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>💫 Shailja Bahal 💫</h1>
+<h1>💫 Pyari Shailja Bahal 💫</h1>
 <h2>
-This is an application to be your Valentine 💌<br><br>
-Will you allow? Please provide me the admit card 😌💘<br><br>
-I assure to work with utmost dignity and honesty ❤️
+This is an application requesting one attempt to prove myself worthy of being your Valentine 💌<br><br>
+Will you allow it? Please grant me the admit card 😌💘<br><br>
+I assure you I will act with utmost dignity and honesty ❤️
 </h2>
+
+<div id="cryMessage">Please don’t say nooo 😭</div>
+
+<audio id="sadMusic">
+    <source src="sad.mp3" type="audio/mp3">
+</audio>
+
+<div id="cry" style="font-size:30px; margin-top:20px;">🥺</div>
 
 <button id="yesBtn">Yes 💖</button>
 <button id="noBtn">No 😏</button>
 
+
 <script>
+let cryMessage=document.getElementById("cryMessage");
+let sadMusic=document.getElementById("sadMusic");
+
 let yesBtn=document.getElementById("yesBtn");
 let noBtn=document.getElementById("noBtn");
+
+let cry=document.getElementById("cry");
+let crySize=30;
 
 let yesSize=20;
 let noSize=20;
@@ -68,6 +123,32 @@ function moveNo(){
 
     yesSize+=6;
     yesBtn.style.fontSize=yesSize+"px";
+
+    // Increase crying emoji size
+    crySize+=5;
+    cry.style.fontSize=crySize+"px";
+
+    // 🔥 STEP 4 CODE STARTS HERE 🔥
+
+    // Start shaking
+    cry.classList.add("shake");
+
+    // Show crying message
+    cryMessage.style.opacity=1;
+
+    // Play sad music
+    sadMusic.play();
+
+    // Falling tears
+    for(let i=0;i<5;i++){
+        let tear=document.createElement("div");
+        tear.innerHTML="💧";
+        tear.classList.add("tear");
+        tear.style.left=Math.random()*100+"vw";
+        document.body.appendChild(tear);
+
+        setTimeout(()=>tear.remove(),3000);
+    }
 }
 
 noBtn.addEventListener("mouseover",moveNo);
